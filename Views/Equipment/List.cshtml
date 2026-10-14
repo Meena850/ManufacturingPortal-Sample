@@ -1,0 +1,32 @@
+@model List<Equipment>
+@{
+    ViewData["Title"] = "Equipment";
+}
+
+<h2>Equipment</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Asset Tag</th>
+            <th>Name</th>
+            <th>Line</th>
+            <th>Status</th>
+            <th>Next Maintenance</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var e in Model)
+        {
+            <tr>
+                <td>@e.AssetTag</td>
+                <td>@e.Name</td>
+                <td>@e.ProductionLine</td>
+                <td><span class="status-@e.Status.ToLower()">@e.Status</span></td>
+                <td>@e.NextMaintenanceDate.ToString("yyyy-MM-dd")</td>
+                <td><a asp-action="Details" asp-route-id="@e.Id">Details</a></td>
+            </tr>
+        }
+    </tbody>
+</table>

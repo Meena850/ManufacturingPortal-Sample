@@ -1,0 +1,66 @@
+@model List<Equipment>
+@{
+    ViewData["Title"] = "Dashboard";
+}
+
+<h2>Plant Dashboard</h2>
+
+<div class="row my-3">
+    <div class="col-md-3">
+        <div class="card text-bg-primary kpi-card">
+            <div class="card-body">
+                <h6>Total Equipment</h6>
+                <h3>@ViewBag.TotalEquipment</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-bg-success kpi-card">
+            <div class="card-body">
+                <h6>Running</h6>
+                <h3>@ViewBag.RunningEquipment</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-bg-warning kpi-card">
+            <div class="card-body">
+                <h6>In Maintenance</h6>
+                <h3>@ViewBag.MaintenanceEquipment</h3>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class="card text-bg-danger kpi-card">
+            <div class="card-body">
+                <h6>Offline</h6>
+                <h3>@ViewBag.OfflineEquipment</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<p>Active portal users: <strong>@ViewBag.ActiveUsers</strong></p>
+
+<h4>Equipment Needing Attention</h4>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Line</th>
+            <th>Status</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var e in Model)
+        {
+            <tr>
+                <td>@e.Name</td>
+                <td>@e.ProductionLine</td>
+                <td><span class="status-@e.Status.ToLower()">@e.Status</span></td>
+                <td><a asp-controller="Equipment" asp-action="Details" asp-route-id="@e.Id">Details</a></td>
+            </tr>
+        }
+    </tbody>
+</table>
